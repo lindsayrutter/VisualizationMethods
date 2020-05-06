@@ -31,11 +31,14 @@ data = data[,c(1,2,4,7,9,11,3,5,6,8,10)]
 data <- data[,c(1:4,7:9)]
 colnames(data) <- c("ID", "K.1", "K.2", "K.3", "L.1", "L.2", "L.3")
 
-# Get data metrics
+# Rearrange data
 rowNames = data[,1]
 dataSel = data[,-1]
 rownames(dataSel) = rowNames
 group <- factor(c(1,1,1,2,2,2))
+
+# Run edgeR default normalization (library scale normalization) to create metrics object
+#######################################################
 y <- DGEList(counts=dataSel,group=group)
 design <- model.matrix(~group)
 y <- estimateDisp(y, design)
@@ -52,9 +55,6 @@ metrics <- metricList[["K_L"]]
 sigMets = metrics[which(metrics$FDR<0.001),]
 sigL <- sigMets[which(sigMets$logFC<0),]
 sigK <- sigMets[which(sigMets$logFC>0),]
-
-logSoy = data
-logSoy[,-1] <- log(data[,-1]+1)
 
 # Filter, normalize, and standardize the data so each gene has mean=0 and stdev=1
 res <- filterStandardizeKL(data)
@@ -77,6 +77,7 @@ sigIDs = list(sigL$ID, sigK$ID)
 boxDat <- melt(fulls, id.vars="ID")
 colnames(boxDat) <- c("ID", "Sample", "Count")
 
+# Create plots for library scale normalization (default edgeR normalization)
 plot_clustersSigRaw = lapply(1:2, function(i){ 
   x = as.data.frame(datas[which(datas$ID %in% sigIDs[[i]]),])
   x$cluster = "color"
@@ -101,9 +102,9 @@ plot_clustersSigRaw = lapply(1:2, function(i){
   pSig
 })
 
-# Repeat for kidney
+# This time, run edgeR with TMM normalization to create metrics object
+# Note: Lines 108-120 are the same as Lines 42-52 except we now use calcNormFactors()
 #######################################################
-
 y <- DGEList(counts=dataSel,group=group)
 # Only difference is we know have calcNormFactors
 y <- calcNormFactors(y)
@@ -122,9 +123,6 @@ metrics <- metricList[["K_L"]]
 sigMets = metrics[which(metrics$FDR<0.001),]
 sigL <- sigMets[which(sigMets$logFC<0),]
 sigK <- sigMets[which(sigMets$logFC>0),]
-
-logSoy = data
-logSoy[,-1] <- log(data[,-1]+1)
 
 # Filter, normalize, and standardize the data so each gene has mean=0 and stdev=1
 res <- filterStandardizeKL(data)
@@ -147,6 +145,7 @@ sigIDs = list(sigL$ID, sigK$ID)
 boxDat <- melt(fulls, id.vars="ID")
 colnames(boxDat) <- c("ID", "Sample", "Count")
 
+# Create plots for TMM normalization (from edgeR)
 plot_clustersSigTMM = lapply(1:2, function(i){ 
   x = as.data.frame(datas[which(datas$ID %in% sigIDs[[i]]),])
   x$cluster = "color"

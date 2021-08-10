@@ -1,7 +1,7 @@
 __Reproducibility files__
 ---
 
-The current repository contains data and scripts needed to reproduce all figures in [differential expression visualization paper](https://doi.org/10.1186/s12859-019-2968-1).
+The current repository contains data and scripts needed to reproduce all figures in the paper [Visualization methods for differential expression analysis](https://doi.org/10.1186/s12859-019-2968-1).
 
 __Note about citation__
 ---

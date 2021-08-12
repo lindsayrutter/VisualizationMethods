@@ -6,7 +6,7 @@ The current repository contains data and scripts needed to reproduce all figures
 __Note about citation__
 ---
 
-If you use these figure-generation tools, please kindly cite the current paper:
+If you use these figure-regeneration tools, please kindly cite the current paper:
 
 ```
 @Article{Rutter2019,

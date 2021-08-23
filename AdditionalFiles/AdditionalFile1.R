@@ -15,10 +15,10 @@ library(scales)
 library(bigPint)
 library(data.table)
 
-source("functions.R")
+source("../functions.R")
 
 # Get data
-load("data/LK_data.RData")
+load("../data/LK_data.RData")
 data = as.data.frame(MA.subsetA$M)
 rownames(data) = as.character(MA.subsetA$genes$EnsemblGeneID)
 setDT(data, keep.rownames = TRUE)[]
@@ -128,6 +128,7 @@ scatMatMetrics = list()
 scatMatMetrics[["K_L"]] = metrics[which(metrics$ID %in% x$ID),]
 scatMatMetrics[["K_L"]]$FDR = 10e-10
 scatMatMetrics[["K_L"]]$ID = as.factor(as.character(scatMatMetrics[["K_L"]]$ID))
+scatMatMetrics[["K_L"]]$ID <- as.character(scatMatMetrics[["K_L"]]$ID)
 
 ret <- plotSM(data = logSoy, dataMetrics = scatMatMetrics, threshVar = "FDR", threshVal = 0.05, pointColor = colList[j], saveFile = FALSE)
 

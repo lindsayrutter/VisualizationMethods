@@ -14,11 +14,11 @@ library(reshape2)
 library(scales)
 library(bigPint)
 
-source("../functions.R")
+source("functions.R")
 
-load("../data/soybean_ir.rda")
+load("data/soybean_ir.rda")
 data <- soybean_ir
-load("../data/soybean_ir_noFilt_metrics.rda")
+load("data/soybean_ir_noFilt_metrics.rda")
 metrics <- soybean_ir_noFilt_metrics[["N_P"]]
 
 # Filter, normalize, and standardize the data so each gene has mean=0 and stdev=1
@@ -43,5 +43,5 @@ colList <- colList[c(3, 2, 5, 1)]
 metricUnList = metrics[["N_P"]]
 geneList = metricUnList[which(metricUnList$FDR < 0.05), ]$ID
 fullGL = fulls[fulls$ID %in% geneList,]
-ret <- plotClusters(data=datas[,c(7,1:6)], geneList = geneList, clusterAllData = TRUE, yAxisLabel = "Standardized count", colList = colList, saveFile = FALSE, vxAxis = TRUE, lineAlpha = 1, lineSize = 0.3)
+ret <- plotClusters(data=datas, geneList = geneList, clusterAllData = TRUE, yAxisLabel = "Standardized count", colList = colList, saveFile = FALSE, vxAxis = TRUE, lineAlpha = 1, lineSize = 0.3)
 plot(ret[["N_P_4"]])

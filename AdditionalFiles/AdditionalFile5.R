@@ -1,14 +1,14 @@
 library(bigPint)
 
-load("data/kidneyLiver.rda")
+load("../data/kidneyLiver.rda")
 dat <- data
 dat <- dat[,1:7]
 dat[,-1] <- log(dat[,-1]+1)
-load("data/add1_metrics.rda")
+load("../data/keep1_metrics.rda")
 
 # Below is the code to examine litre plots. After the application opens, 1) set the "Treatment Pairs" option to "K" and "L", 2) set the "Metrics" to "FDR", and 3) set the "Metric order" option to "Increasing"
 
-app <- plotLitreApp(data = dat, dataMetrics = metrics, pointColor = '#FF34B3')
+app <- plotLitreApp(data = dat, dataMetrics = metrics, pointColor = '#A020F0')
 if (interactive()) {
     shiny::runApp(app, port = 1234, launch.browser = TRUE)
 }

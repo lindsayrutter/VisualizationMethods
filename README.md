@@ -9,18 +9,15 @@ __Note about citation__
 If you use these figure-regeneration tools, please kindly cite the current paper:
 
 ```
-@Article{Rutter2019,
-author="Rutter, Lindsay and Carrillo-Tripp, Jimena and Bonning, Bryony C. and Cook, Dianne and Toth, Amy L. and Dolezal, Adam G.",
-title="Transcriptomic responses to diet quality and viral infection in Apis mellifera",
-journal="BMC Genomics",
-year="2019",
-month="May",
-day="22",
-volume="20",
-number="1",
-pages="412",
-doi="10.1186/s12864-019-5767-1",
-url="https://doi.org/10.1186/s12864-019-5767-1"
+@article{rutter2019visualization,
+  title={Visualization methods for differential expression analysis},
+  author={Rutter, Lindsay and Lauter, Adrienne N Moran and Graham, Michelle A and Cook, Dianne},
+  journal={BMC bioinformatics},
+  volume={20},
+  number={1},
+  pages={1--31},
+  year={2019},
+  publisher={Springer}
 }
 ```
 

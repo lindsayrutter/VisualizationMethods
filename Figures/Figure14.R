@@ -14,11 +14,11 @@ library(reshape2)
 library(scales)
 library(bigPint)
 
-source("functions.R")
+source("../functions.R")
 
-load("data/soybean_ir.rda")
+load("../data/soybean_ir.rda")
 data <- soybean_ir
-load("data/soybean_ir_noFilt_metrics.rda")
+load("../data/soybean_ir_noFilt_metrics.rda")
 metrics <- soybean_ir_noFilt_metrics[["N_P"]]
 
 # Filter, normalize, and standardize the data so each gene has mean=0 and stdev=1
@@ -51,5 +51,5 @@ colnames(boxDat) <- c("ID", "Sample", "Count")
 logSoy = soybean_ir
 logSoy[,-1] <- log(soybean_ir[,-1]+1)
 
-# Plot scatterplot matrix for Cluster 1 significant genes
-plotClusterSM(1)
+# Plot scatterplot matrix for Cluster 4 significant genes
+plotClusterSM(4)

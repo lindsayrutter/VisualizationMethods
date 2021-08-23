@@ -7,9 +7,9 @@ library(GGally)
 library(gridExtra)
 library(cowplot)
 
-load("data/soybean_cn.rda")
+load("../data/soybean_cn.rda")
 data <- soybean_cn
-load("data/soybean_cn_metrics.rda")
+load("../data/soybean_cn_metrics.rda")
 metrics <- soybean_cn_metrics
 
 # Focus on treatment groups S1 and S2

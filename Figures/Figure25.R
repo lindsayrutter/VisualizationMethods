@@ -2,7 +2,7 @@ library(bigPint)
 library(EDASeq)
 library(dplyr)
 
-load("data/kidneyLiver.rda")
+load("../data/kidneyLiver.rda")
 dat <- data
 dat <- dat[,1:7]
 
@@ -26,7 +26,7 @@ nID <- which(is.nan(datqps$K.1))
 datqps[nID,1:6] <- 0
 dat <- datqps[,c(7,1:6)]
 
-load("data/keep1_metrics.rda")
+load("../data/keep1_metrics.rda")
 
 # Below is the code to examine litre plots. After the application opens, 1) set the "Treatment Pairs" option to "K" and "L", 2) set the "Metrics" to "FDR", and 3) set the "Metric order" option to "Increasing"
 

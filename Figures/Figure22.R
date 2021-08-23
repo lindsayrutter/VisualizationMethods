@@ -15,10 +15,10 @@ library(scales)
 library(bigPint)
 library(data.table)
 
-source("functions.R")
+source("../functions.R")
 
 # Get data
-load("data/LK_data.RData")
+load("../data/LK_data.RData")
 data = as.data.frame(MA.subsetA$M)
 rownames(data) = as.character(MA.subsetA$genes$EnsemblGeneID)
 setDT(data, keep.rownames = TRUE)[]
@@ -73,7 +73,7 @@ metrics <- metricList[["K_L"]]
 sigMets = metrics[which(metrics$FDR<0.001),]
 sigK_TMM <- sigMets[which(sigMets$logFC<0),]
 sigL_TMM <- sigMets[which(sigMets$logFC>0),]
-removedDEG <- sigK_Raw[which(!sigK_Raw$ID %in% sigK_TMM$ID),]
+origDEG <- sigL_Raw
 
 # Filter, normalize, and standardize the data so each gene has mean=0 and stdev=1
 res <- filterStandardizeKL(data)
@@ -95,7 +95,7 @@ datas[nID,1:6] <- 0
 yMin = min(datas[,1:6])
 yMax = max(datas[,1:6])
 
-x = as.data.frame(datas[which(datas$ID %in% removedDEG$ID),])
+x = as.data.frame(datas[which(datas$ID %in% origDEG$ID),])
 x$cluster = "color"
 x$cluster2 = factor(x$cluster)
 xNames = rownames(x)
@@ -112,7 +112,7 @@ hc = hclust(d, method="ward.D")
 nC = 8
 # Cluster number
 j=1
-colList = scales::seq_gradient_pal("firebrick2", "red4", "Lab")(seq(0,1,length.out=nC))
+colList = scales::seq_gradient_pal("darkorange", "orangered3", "Lab")(seq(0,1,length.out=nC))
 k = cutree(hc, k=nC)
 
 i = rev(order(table(k)))[j]
@@ -131,6 +131,6 @@ scatMatMetrics[["K_L"]] = metrics[which(metrics$ID %in% x$ID),]
 scatMatMetrics[["K_L"]]$FDR = 10e-10
 scatMatMetrics[["K_L"]]$ID = as.factor(as.character(scatMatMetrics[["K_L"]]$ID))
 
-ret <- plotSM(data = fulls, dataMetrics = scatMatMetrics, threshVar = "FDR", threshVal = 0.05, pointColor = colList[j], saveFile = FALSE)
+ret <- plotSM(data = fulls, geneList = scatMatMetrics[["K_L"]]$ID, threshVar = "FDR", threshVal = 0.05, pointColor = colList[j], saveFile = FALSE)
 
-ret[["K_L"]] + xlab("Standardized Count") + ylab("Standardized Count") + ggtitle(paste("Cluster ", j, " Significant Removed Genes (n=", format(nGenes, big.mark=",", scientific=FALSE), ")",sep="")) + theme(plot.title = element_text(hjust = 0.5, size=11), axis.text=element_text(size=11), axis.title=element_text(size=12), strip.text = element_text(size = 10))
+ret[["K_L"]] + xlab("Standardized Count") + ylab("Standardized Count") + ggtitle(paste("Cluster ", j, " Significant Keep Genes (n=", format(nGenes, big.mark=",", scientific=FALSE), ")",sep="")) + theme(plot.title = element_text(hjust = 0.5, size=11), axis.text=element_text(size=11), axis.title=element_text(size=12), strip.text = element_text(size = 10))

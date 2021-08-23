@@ -14,11 +14,11 @@ library(reshape2)
 library(scales)
 library(bigPint)
 
-source("functions.R")
+source("../functions.R")
 
-load("data/soybean_ir.rda")
+load("../data/soybean_ir.rda")
 data <- soybean_ir
-load("data/soybean_ir_noFilt_metrics.rda")
+load("../data/soybean_ir_noFilt_metrics.rda")
 metrics <- soybean_ir_noFilt_metrics[["N_P"]]
 
 # Filter, normalize, and standardize the data so each gene has mean=0 and stdev=1
@@ -32,16 +32,24 @@ hc <- res[["hc"]]
 # Full data standardized
 fulls <- rbind(datas, filts)
 
-fulls <- fulls[,c(7,1:6)]
-metrics <- list(metrics)
-names(metrics) <- "N_P"
-
-nC=4
+# Number of clusters
+nC = 4
+# Number of samples
+nCol = 6
 colList = scales::hue_pal()(nC+1)
-colList <- colList[c(3, 2, 5, 1)]
+colList <- colList[c(4, 3, 2, 5, 1)]
+# Hierarchical clustering
+k = cutree(hc, k=nC)
 
-metricUnList = metrics[["N_P"]]
-geneList = metricUnList[which(metricUnList$FDR < 0.05), ]$ID
-fullGL = fulls[fulls$ID %in% geneList,]
-ret <- plotClusters(data=datas, geneList = geneList, clusterAllData = TRUE, yAxisLabel = "Standardized count", colList = colList, saveFile = FALSE, vxAxis = TRUE, lineAlpha = 1, lineSize = 0.3)
-plot(ret[["N_P_4"]])
+yMin = min(datas[,1:nCol])
+yMax = max(datas[,1:nCol])
+
+# Create background boxplot data
+boxDat <- melt(fulls, id.vars="ID")
+colnames(boxDat) <- c("ID", "Sample", "Count")
+
+logSoy = soybean_ir
+logSoy[,-1] <- log(soybean_ir[,-1]+1)
+
+# Plot scatterplot matrix for Cluster 2 significant genes
+plotClusterSM(2)

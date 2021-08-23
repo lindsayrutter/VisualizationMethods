@@ -5,9 +5,9 @@ library(ggplot2)
 library(limma)
 library(gridExtra)
 
-load("data/soybean_cn.rda")
+load("../data/soybean_cn.rda")
 data <- soybean_cn
-load("data/sbCNSwitchedMetrics.rda")
+load("../data/sbCNSwitchedMetrics.rda")
 data <- soybean_cn
 metrics <- sbCNSwitchedMetrics
 

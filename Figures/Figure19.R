@@ -15,10 +15,10 @@ library(scales)
 library(bigPint)
 library(data.table)
 
-source("functions.R")
+source("../functions.R")
 
 # Get data
-load("data/LK_data.RData")
+load("../data/LK_data.RData")
 data = as.data.frame(MA.subsetA$M)
 rownames(data) = as.character(MA.subsetA$genes$EnsemblGeneID)
 setDT(data, keep.rownames = TRUE)[]

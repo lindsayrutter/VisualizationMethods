@@ -4,7 +4,7 @@ library(bigPint)
 library(data.table)
 library(ggplot2)
 
-load("data/LK_data.RData")
+load("../data/LK_data.RData")
 data = as.data.frame(MA.subsetA$M)
 rownames(data) = as.character(MA.subsetA$genes$EnsemblGeneID)
 setDT(data, keep.rownames = TRUE)[]

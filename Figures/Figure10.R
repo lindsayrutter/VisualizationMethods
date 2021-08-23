@@ -1,12 +1,12 @@
 library(bigPint)
 
-load("data/soybean_ir.rda")
+load("../data/soybean_ir.rda")
 data <- soybean_ir
 data <- data[,1:7]
 data[,-1] <- log(data[,-1]+1)
 datCol <- colnames(data)[-which(colnames(data) %in% "ID")]
 myPairs <- unique(sapply(datCol, function(x) unlist(strsplit(x,"[.]"))[1]))
-load("data/cluster1_metrics.rda")
+load("../data/cluster1_metrics.rda")
 
 # Below is the code to examine litre plots of the four clusters. After the application opens, 1) set the "Treatment Pairs" option to "N" and "P", 2) set the "Metrics" to "FDR", and 3) set the "Metric order" option to "Increasing"
 

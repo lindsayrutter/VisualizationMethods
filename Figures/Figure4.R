@@ -1,6 +1,6 @@
 library(devtools)
 library(EDASeq)
-library(DESeq)
+library(DESeq2)
 library(RCurl)
 library(data.table)
 library(dplyr)
@@ -13,7 +13,7 @@ library(cowplot)
 install_github("drisso/yeastRNASeqRisso2011")
 library(yeastRNASeqRisso2011)
 
-source("functions.R")
+source("../functions.R")
 
 # Read in three .rda files
 githubURL <- "https://github.com/drisso/yeastRNASeqRisso2011/blob/master/data/"

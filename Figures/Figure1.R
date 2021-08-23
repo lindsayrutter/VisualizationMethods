@@ -3,7 +3,7 @@ library(cowplot)
 library(data.table)
 library(gridExtra)
 
-source("functions.R")
+source("../functions.R")
 
 set.seed(50)
 boxPlots <- vector('list', 2)

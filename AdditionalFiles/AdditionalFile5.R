@@ -12,3 +12,5 @@ app <- plotLitreApp(data = dat, dataMetrics = metrics, pointColor = '#A020F0')
 if (interactive()) {
     shiny::runApp(app, port = 1234, launch.browser = TRUE)
 }
+
+
